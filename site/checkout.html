@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checkout — Burner Mason</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">Burner&nbsp;Mason</a>
+      <nav class="nav"><a href="index.html">← Keep shopping</a></nav>
+    </div>
+  </header>
+
+  <main class="checkout">
+    <div class="wrap">
+      <div class="checkout-grid">
+        <!-- Left: address + shipping -->
+        <section>
+          <h1 style="font-size:36px; margin:0 0 24px;">Checkout</h1>
+
+          <div id="empty-state" class="empty" hidden>
+            Your cart is empty. <a href="index.html">Back to the shop →</a>
+          </div>
+
+          <form id="address-form" novalidate>
+            <h2 class="serif" style="font-size:22px; margin:0 0 16px;">Shipping address</h2>
+            <div class="field-row">
+              <div class="field">
+                <label for="name">Full name</label>
+                <input id="name" name="name" autocomplete="name" required />
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required />
+              </div>
+            </div>
+            <div class="field">
+              <label for="line1">Address</label>
+              <input id="line1" name="line1" autocomplete="address-line1" required />
+            </div>
+            <div class="field">
+              <label for="line2">Apartment, suite, etc. (optional)</label>
+              <input id="line2" name="line2" autocomplete="address-line2" />
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="city">City</label>
+                <input id="city" name="city" autocomplete="address-level2" required />
+              </div>
+              <div class="field">
+                <label for="state">State</label>
+                <input id="state" name="state" autocomplete="address-level1" required />
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="zip">ZIP / Postal code</label>
+                <input id="zip" name="zip" autocomplete="postal-code" required />
+              </div>
+              <div class="field">
+                <label for="country">Country</label>
+                <select id="country" name="country">
+                  <option value="US" selected>United States</option>
+                  <option value="CA">Canada</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="btn" id="rates-btn">Get shipping options</button>
+          </form>
+
+          <div id="rates-msg"></div>
+
+          <div id="rates-section" hidden style="margin-top:28px;">
+            <h2 class="serif" style="font-size:22px; margin:0 0 16px;">Shipping method</h2>
+            <div id="rates-list"></div>
+            <button class="btn block" id="pay-btn" style="margin-top:8px;" disabled>
+              Continue to payment
+            </button>
+            <p class="note" style="margin-top:12px;">
+              You'll be taken to Stripe's secure page to enter payment.
+            </p>
+          </div>
+        </section>
+
+        <!-- Right: order summary -->
+        <aside class="summary">
+          <h2>Order summary</h2>
+          <div id="summary-lines"></div>
+          <div class="totals" id="summary-totals"></div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thank you — Burner Mason</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">Burner&nbsp;Mason</a>
+      <nav class="nav"><a href="index.html">Home</a></nav>
+    </div>
+  </header>
+
+  <main class="result">
+    <div class="inner">
+      <h1>Thank you.</h1>
+      <p>Your order's in. We'll mix it, pour it, pack it by hand, and email you tracking as soon as it ships.</p>
+      <p style="margin-top:28px;"><a class="btn" href="index.html">Back to the shop</a></p>
+    </div>
+  </main>
+
+  <script src="js/cart.js"></script>
+  <script>
+    // Payment succeeded — clear the cart so it doesn't linger.
+    if (window.BMCart) BMCart.clear();
+  </script>
+</body>
+</html>

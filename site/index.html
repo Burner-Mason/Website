@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Burner Mason — handmade lip & hand care</title>
+  <meta name="description" content="Small-batch, handmade lip and hand care. No labels, no fuss. Just things that work." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <div class="strip">Free shipping on orders over $35 · Made by hand, in small batches</div>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">Burner&nbsp;Mason</a>
+      <nav class="nav">
+        <a href="#lips">Lips</a>
+        <a href="#hands">Hands</a>
+        <a href="#about">About</a>
+        <button class="cart-btn" id="open-cart">
+          Cart <span class="cart-count" id="cart-count">0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Burner Mason</div>
+      <h1>Plain things,<br />made well.</h1>
+      <p>Handmade lip and hand care in small batches. No labels, no marketing — just simple formulas that do their job through every season.</p>
+    </div>
+  </section>
+
+  <main>
+    <section class="section" id="lips">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>For lips</h2>
+          <p>Balms for every season, and an oil for shine.</p>
+        </div>
+        <div class="grid" id="grid-lips"></div>
+      </div>
+    </section>
+
+    <section class="section" id="hands" style="padding-top:0;">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>For hands</h2>
+          <p>Clean, protect, and restore — without the grease.</p>
+        </div>
+        <div class="grid" id="grid-hands"></div>
+      </div>
+    </section>
+
+    <section class="section" id="about" style="background:var(--cream-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+      <div class="wrap">
+        <div class="section-head"><h2>Brandless on purpose</h2></div>
+        <div class="values">
+          <div class="value">
+            <h3>Made by hand</h3>
+            <p>Every batch is mixed, poured, and packed by the two of us. Small quantities, made often.</p>
+          </div>
+          <div class="value">
+            <h3>No labels</h3>
+            <p>We skip the packaging theater. What you pay for is what's inside, not the sticker on the outside.</p>
+          </div>
+          <div class="value">
+            <h3>Built for the season</h3>
+            <p>Winter balm that won't freeze stiff. Summer balm that won't melt. Salves for day and for night.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© Burner Mason</span>
+      <span>Handmade in small batches</span>
+    </div>
+  </footer>
+
+  <!-- Cart drawer -->
+  <div class="drawer-backdrop" id="drawer-backdrop"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Shopping cart">
+    <header>
+      <h2>Your cart</h2>
+      <button class="x" id="close-cart" aria-label="Close cart">&times;</button>
+    </header>
+    <div class="items" id="cart-items"></div>
+    <footer id="cart-footer"></footer>
+  </aside>
+
+  <script src="js/config.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/store.js"></script>
+</body>
+</html>
