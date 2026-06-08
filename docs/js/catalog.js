@@ -6,7 +6,7 @@
 window.BM_CATALOG = [
   {
     sku: "balm-winter",
-    name: "Lip Balm — Winter",
+    name: "Winter Balm",
     group: "Lips",
     price: 600,
     priceId: "price_1TfXxGKyfoKG2aQiiqZEfL7d",
@@ -15,7 +15,7 @@ window.BM_CATALOG = [
   },
   {
     sku: "balm-summer",
-    name: "Lip Balm — Summer",
+    name: "Summer Balm",
     group: "Lips",
     price: 600,
     priceId: "price_1TfXxHKyfoKG2aQiqhbGyl5J",
@@ -24,7 +24,7 @@ window.BM_CATALOG = [
   },
   {
     sku: "balm-original",
-    name: "Lip Balm — Original",
+    name: "Balm",
     group: "Lips",
     price: 600,
     priceId: "price_1TfXxHKyfoKG2aQiDieOJmpp",

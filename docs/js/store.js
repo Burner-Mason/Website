@@ -8,7 +8,7 @@
 
   // A tiny typographic "mark" instead of a product photo (we have no labels).
   const initials = (name) =>
-    name.replace(/^Lip Balm.*—\s*/, "").replace(/^Hand .*—\s*/, "").trim()[0] || name[0];
+    name.replace(/^Hand .*—\s*/, "").trim()[0] || name[0];
 
   function productCard(p) {
     const el = document.createElement("article");

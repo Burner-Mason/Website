@@ -4,14 +4,17 @@ Handmade lip & hand care store. Static storefront on **GitHub Pages**, serverles
 backend on **GCP Cloud Run**, payments via **Stripe**, shipping rates + labels via **Shippo**.
 
 ```
-site/      → static storefront (GitHub Pages)
+docs/      → static storefront (served by GitHub Pages from the /docs folder)
 server/    → Node/Express API (Cloud Run): /rates, /checkout, /webhook
-docs/      → design spec
+specs/     → design spec
 ```
+
+The storefront adapts to **light or dark automatically** based on the visitor's system
+setting (`prefers-color-scheme`) — no toggle, no preference stored.
 
 ## How it works
 
-1. A patron browses `site/` and adds products to a localStorage cart.
+1. A patron browses `docs/` and adds products to a localStorage cart.
 2. At checkout they enter their address on our page.
 3. The browser calls **`POST /rates`**:
    - subtotal **≥ $35** → one free-shipping option.
@@ -36,16 +39,16 @@ docs/      → design spec
 
 | SKU | Name | Price | Stripe Price ID |
 |---|---|---|---|
-| balm-winter | Lip Balm — Winter | $6 | price_1TfXxGKyfoKG2aQiiqZEfL7d |
-| balm-summer | Lip Balm — Summer | $6 | price_1TfXxHKyfoKG2aQiqhbGyl5J |
-| balm-original | Lip Balm — Original | $6 | price_1TfXxHKyfoKG2aQiDieOJmpp |
+| balm-winter | Winter Balm | $6 | price_1TfXxGKyfoKG2aQiiqZEfL7d |
+| balm-summer | Summer Balm | $6 | price_1TfXxHKyfoKG2aQiqhbGyl5J |
+| balm-original | Balm | $6 | price_1TfXxHKyfoKG2aQiDieOJmpp |
 | lip-oil | Lip Oil | $12 | price_1TfXxHKyfoKG2aQi8I5icA0H |
 | sanitizer | Hand Sanitizer | $8 | price_1TfXxIKyfoKG2aQixtBQeymy |
 | salve-day | Hand Salve — Day | $14 | price_1TfXxIKyfoKG2aQirxRwHBd2 |
 | salve-night | Hand Salve — Night | $16 | price_1TfXxIKyfoKG2aQiMypB0s5M |
 
 Prices live in three places that MUST agree: Stripe, `server/catalog.js`, and
-`site/js/catalog.js`. To change a price, update the Stripe price (or make a new one) and
+`docs/js/catalog.js`. To change a price, update the Stripe price (or make a new one) and
 edit both catalog files.
 
 ---
@@ -60,7 +63,7 @@ npm install
 npm run dev                 # http://localhost:8080
 
 # 2) Frontend (separate terminal) — config.js already points at localhost:8080
-cd site
+cd docs
 python3 -m http.server 8077 # http://localhost:8077
 ```
 
@@ -101,7 +104,7 @@ gcloud run deploy burner-mason-api \
 
 `gcloud` prints a service URL like `https://burner-mason-api-xxxx-uc.a.run.app`. Then:
 
-1. Put that URL in **`site/js/config.js`** → `API_BASE`.
+1. Put that URL in **`docs/js/config.js`** → `API_BASE`.
 2. Register the webhook in Stripe (Dashboard → Developers → Webhooks → Add endpoint):
    - URL: `https://burner-mason-api-xxxx-uc.a.run.app/webhook`
    - Event: `checkout.session.completed`
@@ -114,14 +117,17 @@ gcloud run deploy burner-mason-api \
 
 ---
 
-## Deploy the storefront → GitHub Pages
+## Deploy the storefront → GitHub Pages (from `/docs`)
 
 1. Push this repo to GitHub.
-2. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-3. The included workflow (`.github/workflows/pages.yml`) publishes `site/` on every push
-   to `main`.
+2. Repo **Settings → Pages → Build and deployment**:
+   - **Source: Deploy from a branch**
+   - **Branch: `main`**, **Folder: `/docs`** → Save.
+3. GitHub publishes the contents of `docs/` at the root of your Pages URL
+   (`https://YOURUSER.github.io/REPO/`) within a minute or two. Every push to `main` that
+   touches `docs/` re-publishes automatically.
 4. **Custom domain:** add your domain under Settings → Pages, then add a file
-   `site/CNAME` containing just your domain (e.g. `burnermason.com`) so it survives
+   `docs/CNAME` containing just your domain (e.g. `burnermason.com`) so it survives
    redeploys. Update `ALLOWED_ORIGIN`/`STOREFRONT_URL` on Cloud Run to match.
 
 ---
@@ -130,7 +136,7 @@ gcloud run deploy burner-mason-api \
 
 1. In Stripe, flip to **live mode** and recreate the 7 products/prices (or use the same
    if created in live). Update the price IDs in both catalog files.
-2. Swap `STRIPE_PUBLISHABLE_KEY` in `site/js/config.js` to your `pk_live_...`.
+2. Swap `STRIPE_PUBLISHABLE_KEY` in `docs/js/config.js` to your `pk_live_...`.
 3. Update the `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` secrets to live values and
    redeploy.
 4. Switch `SHIPPO_TOKEN` from `shippo_test_...` to your live token. Live tokens buy REAL
@@ -147,5 +153,8 @@ gcloud run deploy burner-mason-api \
   Shippo. If a label purchase fails, the order is still paid — buy the label manually in
   Shippo. (Stripe may deliver an event more than once; for high volume add idempotency
   keyed on the Stripe session id before buying.)
-- No product photos yet (intentional, unlabeled brand). Drop images into `site/assets/`
-  and extend the product cards in `site/js/store.js` when ready.
+- No product photos yet (intentional, unlabeled brand). Drop images into `docs/assets/`
+  and extend the product cards in `docs/js/store.js` when ready.
+- Dark mode is automatic via `prefers-color-scheme`. Colors are CSS variables in
+  `docs/assets/styles.css` (`:root` for light, the `@media (prefers-color-scheme: dark)`
+  block for dark) — edit tokens there to retune either theme.

@@ -8,9 +8,9 @@
 // adjust these to your real packed weights.
 
 const CATALOG = {
-  "balm-winter":   { name: "Lip Balm — Winter",   priceId: "price_1TfXxGKyfoKG2aQiiqZEfL7d", amount: 600,  weightOz: 1.5 },
-  "balm-summer":   { name: "Lip Balm — Summer",   priceId: "price_1TfXxHKyfoKG2aQiqhbGyl5J", amount: 600,  weightOz: 1.5 },
-  "balm-original": { name: "Lip Balm — Original", priceId: "price_1TfXxHKyfoKG2aQiDieOJmpp", amount: 600,  weightOz: 1.5 },
+  "balm-winter":   { name: "Winter Balm", priceId: "price_1TfXxGKyfoKG2aQiiqZEfL7d", amount: 600,  weightOz: 1.5 },
+  "balm-summer":   { name: "Summer Balm", priceId: "price_1TfXxHKyfoKG2aQiqhbGyl5J", amount: 600,  weightOz: 1.5 },
+  "balm-original": { name: "Balm",        priceId: "price_1TfXxHKyfoKG2aQiDieOJmpp", amount: 600,  weightOz: 1.5 },
   "lip-oil":       { name: "Lip Oil",             priceId: "price_1TfXxHKyfoKG2aQi8I5icA0H", amount: 1200, weightOz: 2.5 },
   "sanitizer":     { name: "Hand Sanitizer",      priceId: "price_1TfXxIKyfoKG2aQixtBQeymy", amount: 800,  weightOz: 4.0 },
   "salve-day":     { name: "Hand Salve — Day",    priceId: "price_1TfXxIKyfoKG2aQirxRwHBd2", amount: 1400, weightOz: 4.0 },
