@@ -2,6 +2,13 @@
 // Prices and price IDs are public and safe to ship to the browser.
 // The BACKEND keeps its own authoritative copy (server/catalog.js) and never
 // trusts prices sent from here — this list is purely for rendering.
+//
+// Copy approach (informed by DTC practitioners with real track records):
+//   - `blurb`  : 2-4 word hook for the card (the fast scan).
+//   - `desc`   : the one-sentence "why" — what it does + how it benefits you,
+//                in plain language (the "grandma test").
+//   - `detail` : a couple of honest, specific sentences (the story / how it's
+//                made) for the product page. Benefits over ingredient lists.
 
 window.BM_CATALOG = [
   {
@@ -10,8 +17,10 @@ window.BM_CATALOG = [
     group: "Lips",
     price: 600,
     priceId: "price_1TfXxGKyfoKG2aQiiqZEfL7d",
-    blurb: "Stays soft in the cold.",
-    desc: "A winter balm that never freezes hard, so it glides on even at the bottom of a January morning.",
+    blurb: "Won't freeze stiff.",
+    desc: "A lip balm that stays soft and spreadable in the cold — so it actually works when your lips are chapped and the thermometer isn't cooperating.",
+    detail:
+      "We reformulated this through real Washington winters until the wax-and-oil blend stopped turning to stone at the bottom of a coat pocket. It glides on at temperatures where ordinary balm just drags.",
   },
   {
     sku: "balm-summer",
@@ -19,8 +28,10 @@ window.BM_CATALOG = [
     group: "Lips",
     price: 600,
     priceId: "price_1TfXxHKyfoKG2aQiqhbGyl5J",
-    blurb: "Holds up in the heat.",
-    desc: "Built to stay put when it's hot. No melting down in a pocket or a glovebox.",
+    blurb: "Won't melt down.",
+    desc: "A higher-melt lip balm that holds its shape in the heat — so a hot car or a back pocket doesn't turn it to soup.",
+    detail:
+      "Built and tested through summer for people who keep a balm where things get warm. Same clean, soft feel as our other balms — just engineered to stay put.",
   },
   {
     sku: "balm-original",
@@ -28,8 +39,10 @@ window.BM_CATALOG = [
     group: "Lips",
     price: 600,
     priceId: "price_1TfXxHKyfoKG2aQiDieOJmpp",
-    blurb: "The everyday balm.",
-    desc: "Simple, clean, all-season. The one you reach for without thinking.",
+    blurb: "The everyday one.",
+    desc: "The simple, all-season lip balm you reach for without thinking — balanced, unscented, and quietly good.",
+    detail:
+      "If you only want one, this is it: the middle of our range. Soft in the cold, steady in the heat, and nothing you have to think about.",
   },
   {
     sku: "lip-oil",
@@ -37,8 +50,10 @@ window.BM_CATALOG = [
     group: "Lips",
     price: 1200,
     priceId: "price_1TfXxHKyfoKG2aQi8I5icA0H",
-    blurb: "A glossy, nourishing shine.",
-    desc: "A lightweight oil that leaves a soft, glassy shine while it conditions.",
+    blurb: "Soft, glassy shine.",
+    desc: "A lightweight lip oil that leaves a soft, glassy shine while it conditions — glossy, never sticky.",
+    detail:
+      "Sheer and clear, so it layers over a balm or wears on its own. The shine people notice, without the tack that makes your hair stick to your lips.",
   },
   {
     sku: "sanitizer",
@@ -46,8 +61,10 @@ window.BM_CATALOG = [
     group: "Hands",
     price: 800,
     priceId: "price_1TfXxIKyfoKG2aQixtBQeymy",
-    blurb: "Clean hands, not dry hands.",
-    desc: "Kills germs without that tight, cracked feeling. Leaves hands soft.",
+    blurb: "Clean, not cracked.",
+    desc: "A hand sanitizer with enough alcohol to do the job and enough oils to undo the damage — so clean hands don't end up dry and cracked.",
+    detail:
+      "Most sanitizer leaves skin tight and stripped. We put the moisturizers back in, so you can use it all day and still have soft hands at the end of it.",
   },
   {
     sku: "salve-day",
@@ -55,8 +72,10 @@ window.BM_CATALOG = [
     group: "Hands",
     price: 1400,
     priceId: "price_1TfXxIKyfoKG2aQirxRwHBd2",
-    blurb: "Protected, never greasy.",
-    desc: "A daytime salve that keeps hands dry and protected and sinks in without a slick.",
+    blurb: "Protects, not greasy.",
+    desc: "A fast-absorbing daytime hand salve that protects working hands and sinks in clean — no slick, no residue on everything you touch.",
+    detail:
+      "For hands that work. It soaks in quickly so you can get right back to it — without leaving a greasy print on your phone, your tools, or your keyboard.",
   },
   {
     sku: "salve-night",
@@ -65,6 +84,8 @@ window.BM_CATALOG = [
     price: 1600,
     priceId: "price_1TfXxIKyfoKG2aQiMypB0s5M",
     blurb: "Overnight repair.",
-    desc: "A richer overnight salve. Put it on before bed and wake up to restored hands.",
+    desc: "A rich overnight hand salve that works while you sleep — so you wake up to hands that feel genuinely repaired.",
+    detail:
+      "The heavy one, on purpose. Layer it on before bed; it's richer than the day salve because it has all night to absorb and rebuild dry, worn skin.",
   },
 ];

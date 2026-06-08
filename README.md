@@ -154,7 +154,37 @@ gcloud run deploy burner-mason-api \
   Shippo. (Stripe may deliver an event more than once; for high volume add idempotency
   keyed on the Stripe session id before buying.)
 - No product photos yet (intentional, unlabeled brand). Drop images into `docs/assets/`
-  and extend the product cards in `docs/js/store.js` when ready.
-- Dark mode is automatic via `prefers-color-scheme`. Colors are CSS variables in
-  `docs/assets/styles.css` (`:root` for light, the `@media (prefers-color-scheme: dark)`
-  block for dark) — edit tokens there to retune either theme.
+  and extend the product cards in `docs/js/store.js` / `docs/product.html` when ready.
+- Theme: light/dark toggle in the navbar (`docs/js/theme.js`) that **defaults to the
+  visitor's system setting** and remembers an explicit choice in `localStorage`. A tiny
+  inline script in each page's `<head>` applies the saved theme before first paint (no
+  flash). Colors are CSS variables in `docs/assets/styles.css` — `:root` (light), the
+  `@media (prefers-color-scheme: dark)` block (system dark), and `:root[data-theme=...]`
+  (manual override). Keep the two dark blocks in sync.
+
+## Pages
+- `index.html` — storefront (hero, product grids, About teaser)
+- `product.html?sku=<sku>` — one template renders every product page from the catalog
+- `about.html` — brand story
+- `checkout.html` / `success.html` / `cancel.html` — checkout flow
+- `privacy.html` / `terms.html` — legal
+
+## Copy & marketing
+Product/About copy follows guidance from DTC operators with real track records — Ezra
+Firestone (BOOM! by Cindy Joseph), Nik Sharma, and Baymard Institute UX research:
+benefit-led, plain-language ("grandma test"), one-sentence "why" per product, honest
+specific promises, and a story-driven About page. Edit copy in `docs/js/catalog.js`
+(`blurb`/`desc`/`detail`) and `docs/about.html`.
+
+**Highest-ROI things to add next** (per that same research):
+1. **Real customer reviews / social proof** on product pages — the single biggest
+   conversion lever. We intentionally did NOT fabricate any. Collect real ones and add a
+   short "what patrons say" block.
+2. **Simple, in-scale product photos** (even on a plain background) — Baymard finds images
+   are critical for confidence; show the tube/jar next to something for scale.
+
+## Legal (review before launch)
+`privacy.html` and `terms.html` are competent, business-specific templates — **not legal
+advice.** Have a lawyer review them. Confirm the bracketed placeholders: the legal entity
+name (after Stripe Atlas completes), the governing-law state (currently `[Washington]`),
+and the return window (`[30]` days). Update the "Last updated" dates if you change them.

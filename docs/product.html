@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Burner Mason — handmade lip & hand care</title>
-  <meta name="description" content="Small-batch, handmade lip and hand care. No labels, no fuss. Just things that work." />
+  <title>Product — Burner Mason</title>
+  <meta name="description" content="Handmade lip & hand care, made in small batches in Washington." />
   <script>
     // Apply the saved theme before first paint to avoid a flash of the wrong mode.
     (function () {
@@ -27,8 +27,8 @@
     <div class="wrap">
       <a class="brand" href="index.html">Burner&nbsp;Mason</a>
       <nav class="nav">
-        <a href="#lips">Lips</a>
-        <a href="#hands">Hands</a>
+        <a href="index.html#lips">Lips</a>
+        <a href="index.html#hands">Hands</a>
         <a href="about.html">About</a>
         <button class="theme-toggle" id="theme-toggle" type="button"></button>
         <button class="cart-btn" id="open-cart">Cart <span class="cart-count" id="cart-count">0</span></button>
@@ -36,58 +36,42 @@
     </div>
   </header>
 
-  <section class="hero">
+  <main class="product">
     <div class="wrap">
-      <div class="eyebrow">Handmade in Washington</div>
-      <h1>Plain things,<br />made well.</h1>
-      <p>Lip and hand care that each do one thing, well — handmade from natural materials and tested for a year so they hold up in real weather. No labels, no fuss.</p>
+      <a class="back" href="index.html">← All products</a>
+
+      <div id="product-detail">
+        <div class="product-grid">
+          <div class="product-visual">
+            <span class="mark big" id="p-mark"></span>
+          </div>
+          <div class="product-info">
+            <div class="eyebrow" id="p-group"></div>
+            <h1 id="p-name"></h1>
+            <p class="price" id="p-price"></p>
+            <p class="lead" id="p-desc"></p>
+            <p class="detail" id="p-detail"></p>
+
+            <div class="buy">
+              <button class="btn block" id="p-add" data-add="">Add to cart</button>
+            </div>
+
+            <ul class="product-meta">
+              <li>Handmade in Washington, in small batches</li>
+              <li>Built from natural materials, no filler</li>
+              <li>Perfected over a year of testing</li>
+            </ul>
+
+            <p class="patron-note">Made in small batches for patrons who'd rather have the formula than the packaging.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="product-notfound" class="notfound" hidden>
+        <h1>We couldn't find that one.</h1>
+        <p><a class="btn" href="index.html">Back to the shop</a></p>
+      </div>
     </div>
-  </section>
-
-  <main>
-    <section class="section" id="lips">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>For lips</h2>
-          <p>Balms for every season, and an oil for shine.</p>
-        </div>
-        <div class="grid" id="grid-lips"></div>
-      </div>
-    </section>
-
-    <section class="section" id="hands" style="padding-top:0;">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>For hands</h2>
-          <p>Clean, protect, and restore — without the grease.</p>
-        </div>
-        <div class="grid" id="grid-hands"></div>
-      </div>
-    </section>
-
-    <section class="section" id="about" style="background:var(--cream-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Brandless on purpose</h2>
-          <p>Made by hand in Washington, in small batches, for patrons who'd rather have the formula than the packaging.</p>
-        </div>
-        <div class="values">
-          <div class="value">
-            <h3>Made by hand</h3>
-            <p>Every batch is mixed, poured, and packed by the two of us. Small quantities, made often.</p>
-          </div>
-          <div class="value">
-            <h3>No labels</h3>
-            <p>We skip the packaging theater. What you pay for is what's inside, not the sticker on the outside.</p>
-          </div>
-          <div class="value">
-            <h3>Built for the season</h3>
-            <p>Winter balm that won't freeze stiff. Summer balm that won't melt. Salves for day and for night.</p>
-          </div>
-        </div>
-        <p style="margin-top:28px;"><a href="about.html">Read our story →</a></p>
-      </div>
-    </section>
   </main>
 
   <footer class="site-footer">
@@ -114,6 +98,6 @@
   <script src="js/cart.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/theme.js"></script>
-  <script src="js/store.js"></script>
+  <script src="js/product.js"></script>
 </body>
 </html>

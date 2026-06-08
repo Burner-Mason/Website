@@ -4,6 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Thank you — Burner Mason</title>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("bm_theme");
+        if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet" />
@@ -14,7 +22,10 @@
   <header class="site-header">
     <div class="wrap">
       <a class="brand" href="index.html">Burner&nbsp;Mason</a>
-      <nav class="nav"><a href="index.html">Home</a></nav>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <button class="theme-toggle" id="theme-toggle" type="button"></button>
+      </nav>
     </div>
   </header>
 
@@ -26,6 +37,7 @@
     </div>
   </main>
 
+  <script src="js/theme.js"></script>
   <script src="js/cart.js"></script>
   <script>
     // Payment succeeded — clear the cart so it doesn't linger.

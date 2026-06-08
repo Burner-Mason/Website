@@ -19,11 +19,15 @@
   --radius: 4px;
 }
 
-/* Dark mode — follows the visitor's system setting automatically. We only
-   re-map the color tokens; every component reads these variables, so the whole
-   site adapts without per-component overrides. */
+/* Dark palette. Applied in two cases:
+   1. System preference is dark AND the patron hasn't chosen a theme
+      (`:root:not([data-theme])`), and
+   2. The patron explicitly chose dark (`:root[data-theme="dark"]`).
+   The two blocks below MUST stay in sync. A manual choice (data-theme) always
+   wins over the system media query because it has higher specificity. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
+    color-scheme: dark;
     --cream: #1c1a17;
     --cream-2: #24211d;
     --ink: #ece6db;
@@ -38,6 +42,27 @@
     --err-text: #f0b9a3;
     --err-line: #5c392e;
   }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --cream: #1c1a17;
+  --cream-2: #24211d;
+  --ink: #ece6db;
+  --ink-soft: #a89e90;
+  --clay: #c69c77;
+  --clay-deep: #d8b58e;
+  --line: #38332c;
+  --ok: #8fb38f;
+  --surface: #2b2722;
+  --header-bg: rgba(28, 26, 23, 0.9);
+  --err-bg: #3a2620;
+  --err-text: #f0b9a3;
+  --err-line: #5c392e;
+}
+/* Explicit light choice overrides a dark system preference. The light tokens
+   already live in :root; we only need to pin the native color-scheme. */
+:root[data-theme="light"] {
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }
@@ -102,6 +127,15 @@ a:hover { color: var(--clay-deep); }
   background: var(--clay); color: #fff;
   border-radius: 999px; font-size: 12px; letter-spacing: 0;
 }
+.theme-toggle {
+  background: none; border: none; cursor: pointer; padding: 0;
+  color: var(--ink-soft);
+  display: inline-grid; place-items: center;
+  width: 32px; height: 32px; border-radius: 999px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.theme-toggle:hover { color: var(--ink); background: var(--cream-2); }
+.theme-toggle svg { width: 18px; height: 18px; display: block; }
 
 /* ---- Hero ---- */
 .hero {
@@ -151,8 +185,40 @@ a:hover { color: var(--clay-deep); }
 }
 .card h3 { font-size: 21px; margin: 0 0 6px; }
 .card .blurb { color: var(--ink-soft); font-size: 15px; margin: 0 0 18px; flex: 1; }
+.card-link { display: flex; flex-direction: column; flex: 1; color: inherit; }
+.card-link:hover h3 { color: var(--clay-deep); }
 .card .row { display: flex; align-items: center; justify-content: space-between; }
 .card .price { font-family: "EB Garamond", Georgia, serif; font-size: 20px; }
+
+/* ---- Product detail page ---- */
+.product { padding: 40px 0 72px; }
+.back { display: inline-block; margin-bottom: 28px; font-size: 14px; color: var(--ink-soft); letter-spacing: 0.04em; }
+.back:hover { color: var(--ink); }
+.product-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: start; }
+.product-visual {
+  aspect-ratio: 1 / 1; display: grid; place-items: center;
+  background: var(--cream-2); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.mark.big {
+  width: 120px; height: 120px; border: 1px solid var(--clay); border-radius: 999px;
+  display: grid; place-items: center;
+  font-family: "EB Garamond", Georgia, serif; color: var(--clay-deep); font-size: 52px;
+}
+.product-info .eyebrow { text-transform: uppercase; letter-spacing: 0.22em; font-size: 12px; color: var(--clay-deep); margin-bottom: 12px; }
+.product-info h1 { font-size: clamp(34px, 5vw, 48px); margin: 0 0 10px; }
+.product-info .price { font-family: "EB Garamond", Georgia, serif; font-size: 26px; margin: 0 0 24px; }
+.product-info .lead { font-size: 19px; margin: 0 0 16px; }
+.product-info .detail { color: var(--ink-soft); margin: 0 0 28px; }
+.buy { max-width: 280px; margin-bottom: 28px; }
+.product-meta { list-style: none; padding: 0; margin: 0 0 24px; border-top: 1px solid var(--line); }
+.product-meta li { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; display: flex; gap: 10px; align-items: baseline; }
+.product-meta li::before { content: "—"; color: var(--clay); }
+.patron-note { font-style: italic; color: var(--ink-soft); font-size: 15px; }
+.notfound { text-align: center; padding: 80px 0; }
+
+@media (max-width: 760px) {
+  .product-grid { grid-template-columns: 1fr; gap: 28px; }
+}
 
 .btn {
   appearance: none; cursor: pointer;
@@ -256,6 +322,13 @@ a:hover { color: var(--clay-deep); }
 .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: -2px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* ---- Prose (About) ---- */
+.prose { max-width: 660px; }
+.prose .lead { font-size: 21px; line-height: 1.55; margin: 0 0 36px; }
+.prose h2 { font-size: 28px; margin: 44px 0 12px; }
+.prose p { margin: 0 0 18px; }
+.prose .signoff { margin-top: 40px; font-style: italic; color: var(--ink-soft); }
+
 /* ---- Result pages ---- */
 .result { min-height: 70vh; display: grid; place-items: center; text-align: center; }
 .result .inner { max-width: 480px; }
@@ -265,6 +338,8 @@ a:hover { color: var(--clay-deep); }
 /* ---- Footer ---- */
 .site-footer { border-top: 1px solid var(--line); padding: 40px 0; margin-top: 40px; color: var(--ink-soft); font-size: 14px; }
 .site-footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.site-footer a { color: var(--ink-soft); text-decoration: underline; text-underline-offset: 2px; }
+.site-footer a:hover { color: var(--ink); }
 
 @media (max-width: 760px) {
   .checkout-grid { grid-template-columns: 1fr; gap: 32px; }
