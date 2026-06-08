@@ -189,7 +189,7 @@ async function fulfill(session) {
   const shippoRateId = md.shippo_rate_id;
   let rateId = shippoRateId;
 
-  // Free-shipping orders had no customer-selected Shippo rate — rate it now and
+  // Free-shipping orders had no patron-selected Shippo rate — rate it now and
   // buy the cheapest (we absorb the cost).
   if (!shippoRateId || shippoRateId === "free") {
     const address = JSON.parse(md.ship_to || "{}");

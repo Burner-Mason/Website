@@ -41,7 +41,7 @@ function originAddress() {
   };
 }
 
-// Map a customer address (our checkout shape) into Shippo's shape.
+// Map a patron address (our checkout shape) into Shippo's shape.
 function toAddress(a) {
   return {
     name: a.name,
@@ -56,10 +56,10 @@ function toAddress(a) {
 }
 
 // Create a shipment and return its rates (synchronously).
-async function getRates(customerAddress, parcel) {
+async function getRates(patronAddress, parcel) {
   const shipment = await shippo("/shipments/", {
     address_from: originAddress(),
-    address_to: toAddress(customerAddress),
+    address_to: toAddress(patronAddress),
     parcels: [parcel],
     async: false,
   });

@@ -52,12 +52,25 @@
   backdrop.addEventListener("click", closeDrawer);
   document.addEventListener("keydown", (e) => e.key === "Escape" && closeDrawer());
 
-  // Add-to-cart (event delegation) — opens the drawer so it feels responsive.
+  // Add-to-cart (event delegation). We deliberately do NOT open the cart — let
+  // people browse and pick at their own pace. Just a quiet confirmation on the button.
+  function flashAdded(btn) {
+    if (btn.dataset.flashing) return;
+    const original = btn.dataset.label || btn.textContent;
+    btn.dataset.label = original;
+    btn.dataset.flashing = "1";
+    btn.textContent = "Added";
+    setTimeout(() => {
+      btn.textContent = original;
+      delete btn.dataset.flashing;
+    }, 1100);
+  }
+
   document.addEventListener("click", (e) => {
     const add = e.target.closest("[data-add]");
     if (!add) return;
     BMCart.add(add.dataset.add, 1);
-    openDrawer();
+    flashAdded(add);
   });
 
   function renderCart() {

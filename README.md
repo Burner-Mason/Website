@@ -11,16 +11,16 @@ docs/      → design spec
 
 ## How it works
 
-1. Customer browses `site/` and adds products to a localStorage cart.
+1. A patron browses `site/` and adds products to a localStorage cart.
 2. At checkout they enter their address on our page.
 3. The browser calls **`POST /rates`**:
    - subtotal **≥ $35** → one free-shipping option.
    - subtotal **< $35** → live Shippo carrier rates.
 4. They pick a rate; the browser calls **`POST /checkout`**, which creates a Stripe
    Checkout Session (prices rebuilt server-side; chosen shipping locked in) and returns
-   the Stripe URL. The customer pays on Stripe's hosted page.
+   the Stripe URL. The patron pays on Stripe's hosted page.
 5. Stripe fires **`POST /webhook`** → the server tells Shippo to **buy the label**
-   automatically (the exact rate the customer paid, or the cheapest for free-shipping
+   automatically (the exact rate the patron paid, or the cheapest for free-shipping
    orders). Label + tracking appear in your Shippo dashboard.
 
 ### Security model
