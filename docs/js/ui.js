@@ -28,6 +28,14 @@
   }
 
   document.addEventListener("click", (e) => {
+    // Buy now: add the item and jump straight to checkout (fast path).
+    const buy = e.target.closest("[data-buy]");
+    if (buy) {
+      e.preventDefault();
+      BMCart.add(buy.dataset.buy, 1);
+      window.location.href = "checkout.html";
+      return;
+    }
     const add = e.target.closest("[data-add]");
     if (!add) return;
     e.preventDefault(); // don't follow a surrounding product link

@@ -12,6 +12,17 @@
 
 window.BM_CATALOG = [
   {
+    sku: "balm-original",
+    name: "Balm",
+    group: "Lips",
+    price: 600,
+    priceId: "price_1TfXxHKyfoKG2aQiDieOJmpp",
+    blurb: "The everyday one.",
+    desc: "The simple, all-season lip balm you reach for without thinking — balanced, unscented, and quietly good.",
+    detail:
+      "The one to start with. The middle of our range: soft in the cold, steady in the heat, and nothing you have to think about.",
+  },
+  {
     sku: "balm-winter",
     name: "Winter Balm",
     group: "Lips",
@@ -32,17 +43,6 @@ window.BM_CATALOG = [
     desc: "A higher-melt lip balm that holds its shape in the heat — so a hot car or a back pocket doesn't turn it to soup.",
     detail:
       "Built and tested through summer for people who keep a balm where things get warm. Same clean, soft feel as our other balms — just engineered to stay put.",
-  },
-  {
-    sku: "balm-original",
-    name: "Balm",
-    group: "Lips",
-    price: 600,
-    priceId: "price_1TfXxHKyfoKG2aQiDieOJmpp",
-    blurb: "The everyday one.",
-    desc: "The simple, all-season lip balm you reach for without thinking — balanced, unscented, and quietly good.",
-    detail:
-      "If you only want one, this is it: the middle of our range. Soft in the cold, steady in the heat, and nothing you have to think about.",
   },
   {
     sku: "lip-oil",

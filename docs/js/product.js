@@ -30,6 +30,9 @@
   set("p-desc", product.desc);
   set("p-detail", product.detail || "");
 
+  // ui.js handles the clicks (add-to-cart and buy-now) via these data attributes.
   const addBtn = document.getElementById("p-add");
-  if (addBtn) addBtn.setAttribute("data-add", product.sku); // ui.js handles the click
+  if (addBtn) addBtn.setAttribute("data-add", product.sku);
+  const buyBtn = document.getElementById("p-buy");
+  if (buyBtn) buyBtn.setAttribute("data-buy", product.sku);
 })();

@@ -209,7 +209,7 @@ a:hover { color: var(--clay-deep); }
 .product-info .price { font-family: "EB Garamond", Georgia, serif; font-size: 26px; margin: 0 0 24px; }
 .product-info .lead { font-size: 19px; margin: 0 0 16px; }
 .product-info .detail { color: var(--ink-soft); margin: 0 0 28px; }
-.buy { max-width: 280px; margin-bottom: 28px; }
+.buy { max-width: 320px; margin-bottom: 28px; display: flex; flex-direction: column; gap: 10px; }
 .product-meta { list-style: none; padding: 0; margin: 0 0 24px; border-top: 1px solid var(--line); }
 .product-meta li { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; display: flex; gap: 10px; align-items: baseline; }
 .product-meta li::before { content: "—"; color: var(--clay); }
@@ -225,6 +225,8 @@ a:hover { color: var(--clay-deep); }
   font: inherit; font-size: 14px; letter-spacing: 0.04em;
   border: 1px solid var(--ink); background: var(--ink); color: var(--cream);
   padding: 9px 16px; border-radius: var(--radius);
+  min-height: 44px; /* comfortable touch target on mobile */
+  display: inline-flex; align-items: center; justify-content: center;
   transition: opacity 0.2s ease, transform 0.05s ease;
 }
 .btn:hover { opacity: 0.88; }
@@ -346,4 +348,18 @@ a:hover { color: var(--clay-deep); }
   .summary { position: static; }
   .nav { gap: 18px; }
   .hero { padding: 64px 0 48px; }
+  .section { padding: 48px 0; }
+}
+
+/* Phone refinements — keep the header from crowding and cards compact. */
+@media (max-width: 560px) {
+  .wrap { padding: 0 18px; }
+  .site-header .wrap { height: 58px; }
+  .brand { font-size: 18px; letter-spacing: 0.1em; }
+  .nav { gap: 14px; }
+  .nav a { font-size: 13px; }
+  .theme-toggle { width: 40px; height: 40px; } /* bigger touch target */
+  .card { min-height: auto; }                  /* no empty space in single column */
+  .grid { grid-template-columns: 1fr; gap: 12px; }
+  .field-row { grid-template-columns: 1fr; gap: 0; } /* stack name/email, city/state, etc. */
 }
