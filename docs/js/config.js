@@ -3,10 +3,13 @@
 // NEVER put your Stripe secret key (sk_...) or Shippo token here.
 
 window.BM_CONFIG = {
-  // Your Cloud Run service URL. After you deploy the backend, paste it here.
-  // Example: "https://burner-mason-api-xxxxxxxx-uc.a.run.app"
-  // For local testing it defaults to http://localhost:8080.
-  API_BASE: "http://localhost:8080",
+  // Deployed Cloud Run function URLs. Each function serves its handler at the
+  // root path (POST /). Paste the URLs printed by Terraform / gcloud after deploy.
+  //   RATES_URL    → bm-fn-rates service URL
+  //   CHECKOUT_URL → bm-fn-checkout service URL
+  // (The webhook URL is set in the Stripe Dashboard, not here.)
+  RATES_URL: "http://localhost:8081",
+  CHECKOUT_URL: "http://localhost:8082",
 
   // Stripe PUBLISHABLE key (safe to expose). This is your TEST key.
   // Swap to your live pk_live_... key when you go live.

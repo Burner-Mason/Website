@@ -2,7 +2,8 @@
 // Steps: render summary -> collect address -> POST /rates -> pick rate -> POST /checkout -> Stripe.
 
 (function () {
-  const API = window.BM_CONFIG.API_BASE.replace(/\/$/, "");
+  const RATES_URL = window.BM_CONFIG.RATES_URL.replace(/\/$/, "");
+  const CHECKOUT_URL = window.BM_CONFIG.CHECKOUT_URL.replace(/\/$/, "");
   const $ = (id) => document.getElementById(id);
 
   const form = $("address-form");
@@ -86,7 +87,7 @@
     setMsg("");
 
     try {
-      const res = await fetch(`${API}/rates`, {
+      const res = await fetch(RATES_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ items: BMCart.payload(), address: readAddress() }),
@@ -156,7 +157,7 @@
     setMsg("");
 
     try {
-      const res = await fetch(`${API}/checkout`, {
+      const res = await fetch(CHECKOUT_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
