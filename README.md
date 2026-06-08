@@ -99,7 +99,7 @@ gcloud run deploy burner-mason-api \
   --region us-central1 \
   --allow-unauthenticated \
   --set-secrets "STRIPE_SECRET_KEY=STRIPE_SECRET_KEY:latest,SHIPPO_TOKEN=SHIPPO_TOKEN:latest,STRIPE_WEBHOOK_SECRET=STRIPE_WEBHOOK_SECRET:latest" \
-  --set-env-vars "ALLOWED_ORIGIN=https://YOURUSER.github.io,STOREFRONT_URL=https://YOURUSER.github.io/REPO,BUSINESS_NAME=Burner Mason,BUSINESS_STREET1=...,BUSINESS_CITY=...,BUSINESS_STATE=...,BUSINESS_ZIP=...,BUSINESS_COUNTRY=US,BUSINESS_EMAIL=spook@spookylabs.ai"
+  --set-env-vars "ALLOWED_ORIGIN=https://burnermason.com,STOREFRONT_URL=https://burnermason.com,BUSINESS_NAME=Burner Mason,BUSINESS_STREET1=...,BUSINESS_CITY=...,BUSINESS_STATE=...,BUSINESS_ZIP=...,BUSINESS_COUNTRY=US,BUSINESS_EMAIL=spook@spookylabs.ai"
 ```
 
 `gcloud` prints a service URL like `https://burner-mason-api-xxxx-uc.a.run.app`. Then:
@@ -126,9 +126,14 @@ gcloud run deploy burner-mason-api \
 3. GitHub publishes the contents of `docs/` at the root of your Pages URL
    (`https://YOURUSER.github.io/REPO/`) within a minute or two. Every push to `main` that
    touches `docs/` re-publishes automatically.
-4. **Custom domain:** add your domain under Settings → Pages, then add a file
-   `docs/CNAME` containing just your domain (e.g. `burnermason.com`) so it survives
-   redeploys. Update `ALLOWED_ORIGIN`/`STOREFRONT_URL` on Cloud Run to match.
+4. **Custom domain:** the site uses **burnermason.com** (apex). `docs/CNAME` holds the
+   domain so it survives redeploys, and it's set on the GitHub side. Point DNS at GitHub
+   Pages with these records on the apex (`@`):
+   - **A:** `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+   - **AAAA:** `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153`
+   - Optional **CNAME** `www` → `burner-mason.github.io`
+   Once DNS resolves, enable **Enforce HTTPS** in Settings → Pages. `ALLOWED_ORIGIN` and
+   `STOREFRONT_URL` on Cloud Run are already set to `https://burnermason.com`.
 
 ---
 
