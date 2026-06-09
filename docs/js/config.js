@@ -8,8 +8,8 @@ window.BM_CONFIG = {
   //   RATES_URL    → bm-fn-rates service URL
   //   CHECKOUT_URL → bm-fn-checkout service URL
   // (The webhook URL is set in the Stripe Dashboard, not here.)
-  RATES_URL: "http://localhost:8081",
-  CHECKOUT_URL: "http://localhost:8082",
+  RATES_URL: "https://bm-fn-rates-hv6igyon7q-uc.a.run.app",
+  CHECKOUT_URL: "https://bm-fn-checkout-hv6igyon7q-uc.a.run.app",
 
   // Stripe PUBLISHABLE key (safe to expose). This is your TEST key.
   // Swap to your live pk_live_... key when you go live.
