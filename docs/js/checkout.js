@@ -1,5 +1,6 @@
-// Burner Mason — checkout flow.
-// Steps: render summary -> collect address -> POST /rates -> pick rate -> POST /checkout -> Stripe.
+// Burner Mason — on-site checkout.
+// Steps: render summary -> collect address -> POST /rates -> pick rate ->
+//        POST /checkout (PaymentIntent) -> mount Stripe Elements -> pay on-page.
 
 (function () {
   const RATES_URL = window.BM_CONFIG.RATES_URL.replace(/\/$/, "");
@@ -14,6 +15,11 @@
   const payBtn = $("pay-btn");
 
   let selectedRate = null; // { id, amount, label }
+  let stripe = null;
+  let elements = null;
+  let paymentEl = null;
+  let expressEl = null;
+  let paying = false;
 
   // ---- Order summary (trusted catalog data) ----
   function renderSummary() {
@@ -59,6 +65,15 @@
     d.textContent = text; // textContent: never inject server/user strings as HTML
     ratesMsg.appendChild(d);
   }
+  function payMsg(text, isError) {
+    const box = $("payment-msg");
+    box.innerHTML = "";
+    if (!text) return;
+    const d = document.createElement("div");
+    d.className = "msg" + (isError ? " err" : "");
+    d.textContent = text;
+    box.appendChild(d);
+  }
 
   function readAddress() {
     const get = (id) => $(id).value.trim();
@@ -74,6 +89,23 @@
     };
   }
 
+  // Tear down the payment step (e.g. when the address/rate changes).
+  function resetPayment() {
+    if (elements) {
+      try {
+        if (paymentEl) paymentEl.unmount();
+        if (expressEl) expressEl.unmount();
+      } catch (e) {}
+    }
+    elements = paymentEl = expressEl = null;
+    paying = false;
+    $("payment-section").hidden = true;
+    payMsg("");
+    payBtn.hidden = false;
+    payBtn.disabled = !selectedRate;
+    payBtn.textContent = "Continue to payment";
+  }
+
   // ---- Step 1: get rates ----
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -82,6 +114,7 @@
     selectedRate = null;
     payBtn.disabled = true;
     ratesSection.hidden = true;
+    resetPayment();
     ratesBtn.disabled = true;
     ratesBtn.innerHTML = `<span class="spinner"></span> Getting rates…`;
     setMsg("");
@@ -120,7 +153,7 @@
       meta.className = "meta";
       const svc = document.createElement("div");
       svc.className = "svc";
-      svc.textContent = rate.label; // e.g. "USPS Priority Mail"
+      svc.textContent = rate.label;
       const eta = document.createElement("div");
       eta.className = "eta";
       eta.textContent = rate.eta || "";
@@ -137,23 +170,22 @@
         document.querySelectorAll(".rate").forEach((r) => r.classList.remove("sel"));
         label.classList.add("sel");
         selectedRate = { id: rate.id, amount: rate.amount, label: rate.label };
-        payBtn.disabled = false;
         renderTotals();
+        resetPayment(); // changing the rate invalidates any created PaymentIntent
       });
 
       ratesList.appendChild(label);
-
       if (i === 0) input.click(); // preselect the first/cheapest
     });
 
     ratesSection.hidden = false;
   }
 
-  // ---- Step 2: create Stripe session & redirect ----
+  // ---- Step 2: create the PaymentIntent and mount Stripe Elements ----
   payBtn.addEventListener("click", async () => {
     if (!selectedRate) return;
     payBtn.disabled = true;
-    payBtn.innerHTML = `<span class="spinner"></span> Redirecting to payment…`;
+    payBtn.innerHTML = `<span class="spinner"></span> Loading payment…`;
     setMsg("");
 
     try {
@@ -167,14 +199,75 @@
         }),
       });
       const data = await res.json();
-      if (!res.ok || !data.url) throw new Error(data.error || "Could not start checkout.");
-      window.location.href = data.url; // Stripe-hosted payment page
+      if (!res.ok || !data.clientSecret) throw new Error(data.error || "Could not start payment.");
+      await mountPayment(data.clientSecret, data.amount);
+      payBtn.hidden = true;
     } catch (err) {
-      setMsg(err.message || "Something went wrong starting checkout.", true);
+      setMsg(err.message || "Something went wrong starting payment.", true);
       payBtn.disabled = false;
       payBtn.textContent = "Continue to payment";
     }
   });
+
+  async function mountPayment(clientSecret, amount) {
+    if (!stripe) stripe = Stripe(window.BM_CONFIG.STRIPE_PUBLISHABLE_KEY);
+
+    const root = document.documentElement.getAttribute("data-theme");
+    const dark = root === "dark" || (!root && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    elements = stripe.elements({ clientSecret, appearance: { theme: dark ? "night" : "stripe" } });
+
+    // Express Checkout Element: Apple Pay / Google Pay / Link buttons (when available).
+    expressEl = elements.create("expressCheckout");
+    expressEl.on("ready", (ev) => {
+      const has = ev && ev.availablePaymentMethods && Object.keys(ev.availablePaymentMethods).length > 0;
+      $("ece-divider").hidden = !has;
+    });
+    expressEl.on("confirm", () => confirmPay());
+    expressEl.mount("#express-checkout-element");
+
+    // Payment Element: cards (+ other enabled methods).
+    paymentEl = elements.create("payment", { layout: "tabs" });
+    paymentEl.mount("#payment-element");
+
+    const submit = $("submit-payment");
+    submit.disabled = false;
+    submit.textContent = amount != null ? `Pay ${bmMoney(amount)}` : "Pay";
+    submit.onclick = () => confirmPay();
+
+    $("payment-section").hidden = false;
+    $("payment-section").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  async function confirmPay() {
+    if (paying || !elements) return;
+    paying = true;
+    const submit = $("submit-payment");
+    submit.disabled = true;
+    submit.innerHTML = `<span class="spinner"></span> Processing…`;
+    payMsg("");
+
+    const { error, paymentIntent } = await stripe.confirmPayment({
+      elements,
+      confirmParams: { return_url: location.origin + "/success.html" },
+      redirect: "if_required",
+    });
+
+    if (error) {
+      payMsg(error.message || "Payment failed. Please try another method.", true);
+      submit.disabled = false;
+      submit.textContent = "Pay";
+      paying = false;
+      return;
+    }
+    if (paymentIntent && (paymentIntent.status === "succeeded" || paymentIntent.status === "processing")) {
+      window.location.href = "success.html";
+      return;
+    }
+    payMsg("Payment couldn't be completed (" + (paymentIntent ? paymentIntent.status : "unknown") + ").", true);
+    submit.disabled = false;
+    submit.textContent = "Pay";
+    paying = false;
+  }
 
   renderSummary();
 })();

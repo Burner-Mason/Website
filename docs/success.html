@@ -30,7 +30,7 @@
   </header>
 
   <main class="result">
-    <div class="inner">
+    <div class="inner" id="result-inner">
       <h1>Thank you.</h1>
       <p>Your order's in. We'll mix it, pour it, pack it by hand, and email you tracking as soon as it ships.</p>
       <p style="margin-top:28px;"><a class="btn" href="index.html">Back to the shop</a></p>
@@ -40,8 +40,20 @@
   <script src="js/theme.js"></script>
   <script src="js/cart.js"></script>
   <script>
-    // Payment succeeded — clear the cart so it doesn't linger.
-    if (window.BMCart) BMCart.clear();
+    // Redirect-based payment methods return here with a redirect_status param.
+    // Only treat a non-failed payment as success.
+    (function () {
+      var status = new URLSearchParams(location.search).get("redirect_status");
+      if (status === "failed") {
+        document.getElementById("result-inner").innerHTML =
+          '<h1>Payment didn’t go through.</h1>' +
+          '<p>No charge was made. You can try again — your cart is still here.</p>' +
+          '<p style="margin-top:28px;"><a class="btn" href="checkout.html">Return to checkout</a></p>';
+        return; // keep the cart
+      }
+      // Success (in-place confirm or redirect_status=succeeded/processing) — clear cart.
+      if (window.BMCart) BMCart.clear();
+    })();
   </script>
 </body>
 </html>

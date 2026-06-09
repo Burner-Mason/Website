@@ -319,6 +319,8 @@ a:hover { color: var(--clay-deep); }
 .totals .row.grand { color: var(--ink); font-family: "EB Garamond", Georgia, serif; font-size: 22px; padding-top: 10px; }
 
 .note { font-size: 13px; color: var(--ink-soft); }
+.ece-divider { display: flex; align-items: center; gap: 12px; margin: 18px 0; color: var(--ink-soft); font-size: 13px; letter-spacing: 0.04em; }
+.ece-divider::before, .ece-divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 .msg { padding: 12px 14px; border-radius: var(--radius); font-size: 14px; margin: 12px 0; }
 .msg.err { background: var(--err-bg); color: var(--err-text); border: 1px solid var(--err-line); }
 .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: -2px; }

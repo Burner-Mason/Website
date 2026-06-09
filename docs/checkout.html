@@ -17,6 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="assets/styles.css" />
+  <!-- Stripe.js (must be loaded from js.stripe.com — never bundled/self-hosted). -->
+  <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
   <header class="site-header">
@@ -95,9 +97,22 @@
             <button class="btn block" id="pay-btn" style="margin-top:8px;" disabled>
               Continue to payment
             </button>
+          </div>
+
+          <!-- On-site payment: Apple Pay / Google Pay (Express Checkout) + cards (Payment Element) -->
+          <div id="payment-section" hidden style="margin-top:28px;">
+            <h2 class="serif" style="font-size:22px; margin:0 0 16px;">Payment</h2>
+            <div id="express-checkout-element"></div>
+            <div id="ece-divider" class="ece-divider" hidden><span>or pay with card</span></div>
+            <div id="payment-element"></div>
+            <button class="btn block" id="submit-payment" style="margin-top:16px;" disabled>
+              Pay
+            </button>
+            <div id="payment-msg"></div>
             <p class="note" style="margin-top:12px;">
-              🔒 Secure checkout on Stripe — Apple&nbsp;Pay, Google&nbsp;Pay, and cards accepted.
-              Nothing is charged until you confirm. Questions? <a href="mailto:help@burnermason.com">help@burnermason.com</a>
+              🔒 Secured by Stripe — your card details never touch our servers. Apple&nbsp;Pay
+              and Google&nbsp;Pay appear above on supported devices. Questions?
+              <a href="mailto:help@burnermason.com">help@burnermason.com</a>
             </p>
           </div>
         </section>
