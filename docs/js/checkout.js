@@ -216,8 +216,13 @@
     const dark = root === "dark" || (!root && window.matchMedia("(prefers-color-scheme: dark)").matches);
     elements = stripe.elements({ clientSecret, appearance: { theme: dark ? "night" : "stripe" } });
 
-    // Express Checkout Element: Apple Pay / Google Pay / Link buttons (when available).
-    expressEl = elements.create("expressCheckout");
+    // Express Checkout Element: Apple Pay / Google Pay buttons.
+    // `always` makes the buttons show on supported browsers even when the wallet
+    // isn't pre-set-up (default hides Google Pay in Chrome with no saved card).
+    // It still won't show on unsupported platforms (Apple Pay is Safari-only).
+    expressEl = elements.create("expressCheckout", {
+      paymentMethods: { applePay: "always", googlePay: "always" },
+    });
     expressEl.on("ready", (ev) => {
       const has = ev && ev.availablePaymentMethods && Object.keys(ev.availablePaymentMethods).length > 0;
       $("ece-divider").hidden = !has;
