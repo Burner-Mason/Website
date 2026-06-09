@@ -42,6 +42,15 @@
             Your cart is empty. <a href="index.html">Back to the shop →</a>
           </div>
 
+          <!-- Express checkout: Apple Pay / Google Pay lead the flow. The wallet
+               supplies the shipping address; we compute live rates in the sheet. -->
+          <div id="express-top" hidden>
+            <h2 class="serif" style="font-size:22px; margin:0 0 14px;">Express checkout</h2>
+            <div id="express-top-element"></div>
+            <div id="express-msg"></div>
+            <div class="ece-divider"><span>or enter your details</span></div>
+          </div>
+
           <form id="address-form" novalidate>
             <h2 class="serif" style="font-size:22px; margin:0 0 16px;">Shipping address</h2>
             <div class="field-row">
@@ -99,19 +108,16 @@
             </button>
           </div>
 
-          <!-- On-site payment: Apple Pay / Google Pay (Express Checkout) + cards (Payment Element) -->
+          <!-- Card payment for customers who don't use a wallet. -->
           <div id="payment-section" hidden style="margin-top:28px;">
             <h2 class="serif" style="font-size:22px; margin:0 0 16px;">Payment</h2>
-            <div id="express-checkout-element"></div>
-            <div id="ece-divider" class="ece-divider" hidden><span>or pay with card</span></div>
             <div id="payment-element"></div>
             <button class="btn block" id="submit-payment" style="margin-top:16px;" disabled>
               Pay
             </button>
             <div id="payment-msg"></div>
             <p class="note" style="margin-top:12px;">
-              🔒 Secured by Stripe — your card details never touch our servers. Apple&nbsp;Pay
-              and Google&nbsp;Pay appear above on supported devices. Questions?
+              🔒 Secured by Stripe — your card details never touch our servers. Questions?
               <a href="mailto:help@burnermason.com">help@burnermason.com</a>
             </p>
           </div>
