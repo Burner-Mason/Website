@@ -55,6 +55,20 @@
         row("ApplePaySession.canMakePayments()", cmp ? "YES" : "NO — Wallet/Safari setting blocks Apple Pay", cmp);
       } catch (e) { row("canMakePayments()", "ERROR: " + e.message, false); }
       try { row("ApplePaySession.supportsVersion(3)", ApplePaySession.supportsVersion(3) ? "YES" : "NO", ApplePaySession.supportsVersion(3)); } catch (e) {}
+      // Safari 17+: distinguishes "privacy setting blocks the check" from "no card".
+      try {
+        if (typeof ApplePaySession.applePayCapabilities === "function") {
+          ApplePaySession.applePayCapabilities("merchant.com.burnermason.store").then(function (cap) {
+            var s = cap && cap.paymentCredentialStatus;
+            var hint = s === "paymentCredentialStatusUnknown"
+              ? " → Safari privacy setting is blocking wallet checks (Settings → Advanced)"
+              : s === "paymentCredentialsUnavailable" ? " → no card set up for Apple Pay on this Mac" : "";
+            row("applePayCapabilities()", (s || JSON.stringify(cap)) + hint, s === "paymentCredentialsAvailable");
+          }).catch(function (e) { row("applePayCapabilities()", "ERROR: " + e.message, false); });
+        } else {
+          row("applePayCapabilities()", "API not available in this Safari");
+        }
+      } catch (e) { row("applePayCapabilities()", "ERROR: " + e.message, false); }
     }
 
     fetch("/.well-known/apple-developer-merchantid-domain-association", { cache: "reload" })
