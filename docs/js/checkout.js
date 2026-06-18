@@ -307,8 +307,20 @@
     submit.disabled = false; submit.textContent = "Pay"; paying = false;
   }
 
+  // Pre-warm the Cloud Run functions on page load so a cold start doesn't
+  // freeze the Apple Pay / Google Pay sheet while it waits for live shipping
+  // rates (and then the PaymentIntent). Fire-and-forget; no-cors so the GET
+  // (which the functions answer 405 to) never trips CORS — the point is only
+  // to spin the instances up before the wallet flow needs them.
+  function warmBackends() {
+    [RATES_URL, CHECKOUT_URL].forEach((url) => {
+      try { fetch(url, { method: "GET", mode: "no-cors", cache: "no-store" }).catch(() => {}); } catch (e) {}
+    });
+  }
+
   // ---- init ----
   if (renderSummary()) {
+    warmBackends();
     try { initExpress(); } catch (e) { /* wallets unavailable — manual flow still works */ }
   }
 })();
