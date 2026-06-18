@@ -23,6 +23,9 @@
     media.className = "card-media";
     if (p.image) {
       media.appendChild(window.bmProductImage(p, "card", false));
+    } else if (p.comingSoon) {
+      media.classList.add("is-soon");
+      media.appendChild(window.bmComingSoon(p, false));
     } else {
       media.classList.add("is-mark");
       const mark = document.createElement("span");

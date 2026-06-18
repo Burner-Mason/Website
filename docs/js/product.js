@@ -24,12 +24,16 @@
 
   document.title = `${product.name} — Burner Mason`;
 
-  // Hero: product photo if mapped, else the typographic mark.
+  // Hero: product photo if mapped, else a "coming soon" placeholder, else the mark.
   const visual = document.querySelector(".product-visual");
   if (product.image && visual) {
     visual.classList.add("has-photo");
     visual.innerHTML = "";
     visual.appendChild(window.bmProductImage(product, "hero", true));
+  } else if (product.comingSoon && visual) {
+    visual.classList.add("is-soon");
+    visual.innerHTML = "";
+    visual.appendChild(window.bmComingSoon(product, true));
   } else {
     set("p-mark", initials(product.name));
   }

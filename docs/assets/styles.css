@@ -188,6 +188,25 @@ a:hover { color: var(--clay-deep); }
 .card-media img { transition: transform 0.4s ease; }
 .card:hover .card-media img { transform: scale(1.04); }
 .card-media.is-mark { display: grid; place-items: center; }
+/* "Coming soon" placeholder (cards + product hero). */
+.card-media.is-soon, .product-visual.is-soon {
+  display: grid; place-items: center;
+  background:
+    radial-gradient(120% 120% at 30% 20%, color-mix(in srgb, var(--clay) 14%, transparent), transparent 60%),
+    var(--cream-2);
+}
+.soon { display: grid; justify-items: center; gap: 8px; text-align: center; padding: 16px; }
+.soon-mark { font-size: 30px; line-height: 1; filter: saturate(1.1); animation: soon-bob 3s ease-in-out infinite; }
+.soon-label {
+  font-family: "EB Garamond", Georgia, serif; font-size: 18px; color: var(--clay-deep);
+}
+.soon-sub { font-size: 11px; letter-spacing: 0.12em; text-transform: lowercase; color: var(--ink-soft); }
+.soon-big { gap: 12px; }
+.soon-big .soon-mark { font-size: 56px; }
+.soon-big .soon-label { font-size: 30px; }
+.soon-big .soon-sub { font-size: 13px; letter-spacing: 0.16em; }
+@keyframes soon-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@media (prefers-reduced-motion: reduce) { .soon-mark { animation: none; } }
 .card .mark {
   width: 44px; height: 44px;
   border: 1px solid var(--clay); border-radius: 999px;
