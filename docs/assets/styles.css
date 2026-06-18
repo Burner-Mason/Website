@@ -350,6 +350,68 @@ a:hover { color: var(--clay-deep); }
 .prose p { margin: 0 0 18px; }
 .prose .signoff { margin-top: 40px; font-style: italic; color: var(--ink-soft); }
 
+/* ---- About page (editorial) ---- */
+.about-hero { padding: 104px 0 60px; border-bottom: 1px solid var(--line); }
+.about-hero .eyebrow {
+  text-transform: uppercase; letter-spacing: 0.24em;
+  font-size: 12px; color: var(--clay-deep); margin-bottom: 22px;
+}
+.about-hero h1 {
+  font-size: clamp(46px, 8.5vw, 92px); line-height: 1.04; margin: 0;
+  max-width: 14ch; letter-spacing: 0;
+}
+.about-hero h1 em { font-style: italic; color: var(--clay-deep); }
+.about-hero .kicker {
+  margin: 26px 0 0; max-width: 50ch; color: var(--ink-soft);
+  font-size: clamp(18px, 2.4vw, 21px); line-height: 1.55;
+}
+
+.story { padding: 64px 0 8px; }
+.story-body { max-width: 680px; }
+.story-lead {
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: clamp(23px, 3.4vw, 30px); line-height: 1.42;
+  margin: 0 0 16px; color: var(--ink);
+}
+.story-body > p { margin: 0 0 20px; font-size: 18px; }
+.story-body strong { font-weight: 600; color: var(--ink); }
+.story h2 {
+  font-size: clamp(24px, 3vw, 30px); margin: 52px 0 14px;
+  display: flex; align-items: baseline; gap: 14px;
+}
+.story h2 .n {
+  font-size: 14px; color: var(--clay); letter-spacing: 0.1em;
+  font-family: -apple-system, sans-serif; font-weight: 600;
+  font-feature-settings: "tnum"; flex: none;
+}
+
+.pullquote {
+  margin: 56px 0; padding: 4px 0 4px 28px;
+  border-left: 2px solid var(--clay);
+  font-family: "EB Garamond", Georgia, serif; font-style: italic;
+  font-size: clamp(26px, 4.4vw, 40px); line-height: 1.22; color: var(--ink);
+}
+
+.manifesto { list-style: none; padding: 0; margin: 32px 0 8px; border-top: 1px solid var(--line); }
+.manifesto li {
+  padding: 20px 0; border-bottom: 1px solid var(--line);
+  display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: baseline;
+}
+.manifesto .term {
+  font-family: "EB Garamond", Georgia, serif; font-size: 20px;
+  color: var(--clay-deep); white-space: nowrap;
+}
+.manifesto .def { margin: 0; color: var(--ink-soft); font-size: 16px; }
+
+.signature { margin-top: 48px; }
+.signature .by { font-family: "EB Garamond", Georgia, serif; font-size: 22px; font-style: italic; }
+.signature .loc { color: var(--ink-soft); font-size: 14px; letter-spacing: 0.04em; margin-top: 4px; }
+
+@media (max-width: 560px) {
+  .about-hero { padding: 64px 0 40px; }
+  .manifesto li { grid-template-columns: 1fr; gap: 4px; }
+}
+
 /* ---- Result pages ---- */
 .result { min-height: 70vh; display: grid; place-items: center; text-align: center; }
 .result .inner { max-width: 480px; }
