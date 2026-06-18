@@ -7,24 +7,39 @@
     Hands: document.getElementById("grid-hands"),
   };
 
-  // A small typographic "mark" stands in for a product photo (we have no labels).
+  // Typographic "mark" used as a fallback when a product has no photo.
   const initials = (name) => name.replace(/^Hand .*—\s*/, "").trim()[0] || name[0];
 
   function productCard(p) {
     const el = document.createElement("article");
     el.className = "card";
     const href = `product.html?sku=${encodeURIComponent(p.sku)}`;
+
+    // Media: a product photo when we have one, else the typographic mark.
+    const link = document.createElement("a");
+    link.className = "card-link";
+    link.href = href;
+    const media = document.createElement("span");
+    media.className = "card-media";
+    if (p.image) {
+      media.appendChild(window.bmProductImage(p, "card", false));
+    } else {
+      media.classList.add("is-mark");
+      const mark = document.createElement("span");
+      mark.className = "mark";
+      mark.textContent = initials(p.name);
+      media.appendChild(mark);
+    }
     // Card data is from our own catalog (trusted), so templating is safe here.
-    el.innerHTML = `
-      <a class="card-link" href="${href}">
-        <span class="mark">${initials(p.name)}</span>
-        <h3>${p.name}</h3>
-        <p class="blurb">${p.blurb}</p>
-      </a>
-      <div class="row">
-        <span class="price">${bmMoney(p.price)}</span>
-        <button class="btn" data-add="${p.sku}">Add</button>
-      </div>`;
+    link.innerHTML = `<h3>${p.name}</h3><p class="blurb">${p.blurb}</p>`;
+    link.prepend(media);
+
+    const row = document.createElement("div");
+    row.className = "row";
+    row.innerHTML = `<span class="price">${bmMoney(p.price)}</span>
+      <button class="btn" data-add="${p.sku}">Add</button>`;
+
+    el.append(link, row);
     return el;
   }
 

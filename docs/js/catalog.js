@@ -9,10 +9,21 @@
 //                in plain language (the "grandma test").
 //   - `detail` : a couple of honest, specific sentences (the story / how it's
 //                made) for the product page. Benefits over ingredient lists.
+//   - `image`  : the product photo ID (see assets/products/). To re-assign a
+//                photo to a product, just change this one string — the card
+//                and hero derivatives (-card / -hero, .webp + .jpg) are built
+//                from it automatically. Available photo IDs:
+//                  img-9847 = spray bottle (Hand Sanitizer)
+//                  img-9856 = open tin, teal product
+//                  img-9857 = open tin, peach/orange product
+//                  img-9852 = closed silver tin
+//                  img-9842 = clear tube, coral product (textured background)
+//                  img-9845 = clear tube, coral product (plain background)
 
 window.BM_CATALOG = [
   {
     sku: "balm-original",
+    image: "img-9845",
     name: "Balm",
     group: "Lips",
     price: 600,
@@ -24,6 +35,7 @@ window.BM_CATALOG = [
   },
   {
     sku: "balm-winter",
+    image: "img-9842",
     name: "Winter Balm",
     group: "Lips",
     price: 600,
@@ -35,6 +47,7 @@ window.BM_CATALOG = [
   },
   {
     sku: "balm-summer",
+    image: "img-9852",
     name: "Summer Balm",
     group: "Lips",
     price: 600,
@@ -46,6 +59,7 @@ window.BM_CATALOG = [
   },
   {
     sku: "lip-oil",
+    image: "img-9845",
     name: "Lip Oil",
     group: "Lips",
     price: 1200,
@@ -57,6 +71,7 @@ window.BM_CATALOG = [
   },
   {
     sku: "sanitizer",
+    image: "img-9847",
     name: "Hand Sanitizer",
     group: "Hands",
     price: 800,
@@ -68,6 +83,7 @@ window.BM_CATALOG = [
   },
   {
     sku: "salve-day",
+    image: "img-9857",
     name: "Hand Salve — Day",
     group: "Hands",
     price: 1400,
@@ -79,6 +95,7 @@ window.BM_CATALOG = [
   },
   {
     sku: "salve-night",
+    image: "img-9856",
     name: "Hand Salve — Night",
     group: "Hands",
     price: 1600,
@@ -89,3 +106,21 @@ window.BM_CATALOG = [
       "The heavy one, on purpose. Layer it on before bed; it's richer than the day salve because it has all night to absorb and rebuild dry, worn skin.",
   },
 ];
+
+// Build a <picture> for a product photo. `size` is "card" or "hero".
+// Serves WebP with a JPG fallback; lazy-loads by default (eager for hero).
+window.bmProductImage = function (product, size, eager) {
+  const pic = document.createElement("picture");
+  if (!product || !product.image) return pic; // graceful no-op if unmapped
+  const base = `assets/products/${product.image}-${size}`;
+  const src = document.createElement("source");
+  src.type = "image/webp";
+  src.srcset = `${base}.webp`;
+  const img = document.createElement("img");
+  img.src = `${base}.jpg`;
+  img.alt = product.name;
+  img.loading = eager ? "eager" : "lazy";
+  img.decoding = "async";
+  pic.append(src, img);
+  return pic;
+};

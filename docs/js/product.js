@@ -23,7 +23,16 @@
   };
 
   document.title = `${product.name} — Burner Mason`;
-  set("p-mark", initials(product.name));
+
+  // Hero: product photo if mapped, else the typographic mark.
+  const visual = document.querySelector(".product-visual");
+  if (product.image && visual) {
+    visual.classList.add("has-photo");
+    visual.innerHTML = "";
+    visual.appendChild(window.bmProductImage(product, "hero", true));
+  } else {
+    set("p-mark", initials(product.name));
+  }
   set("p-group", product.group === "Lips" ? "For lips" : "For hands");
   set("p-name", product.name);
   set("p-price", bmMoney(product.price));

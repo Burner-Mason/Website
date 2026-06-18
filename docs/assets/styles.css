@@ -176,8 +176,20 @@ a:hover { color: var(--clay-deep); }
   transition: background 0.25s ease, border-color 0.25s ease;
 }
 .card:hover { background: var(--surface); border-color: var(--clay); }
+/* Product photo on a card (falls back to the typographic mark). */
+.card-media {
+  display: block; margin-bottom: 18px;
+  aspect-ratio: 1 / 1; border-radius: calc(var(--radius) - 6px);
+  overflow: hidden; background: var(--cream-2); border: 1px solid var(--line);
+}
+.card-media picture, .card-media img {
+  display: block; width: 100%; height: 100%; object-fit: cover;
+}
+.card-media img { transition: transform 0.4s ease; }
+.card:hover .card-media img { transform: scale(1.04); }
+.card-media.is-mark { display: grid; place-items: center; }
 .card .mark {
-  width: 44px; height: 44px; margin-bottom: 20px;
+  width: 44px; height: 44px;
   border: 1px solid var(--clay); border-radius: 999px;
   display: grid; place-items: center;
   font-family: "EB Garamond", Georgia, serif;
@@ -198,6 +210,11 @@ a:hover { color: var(--clay-deep); }
 .product-visual {
   aspect-ratio: 1 / 1; display: grid; place-items: center;
   background: var(--cream-2); border: 1px solid var(--line); border-radius: var(--radius);
+  overflow: hidden;
+}
+.product-visual.has-photo { padding: 0; }
+.product-visual picture, .product-visual img {
+  display: block; width: 100%; height: 100%; object-fit: cover;
 }
 .mark.big {
   width: 120px; height: 120px; border: 1px solid var(--clay); border-radius: 999px;
