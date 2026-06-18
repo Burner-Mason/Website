@@ -23,7 +23,6 @@
 window.BM_CATALOG = [
   {
     sku: "balm-original",
-    image: "img-9845",
     name: "Balm",
     group: "Lips",
     price: 600,
@@ -35,7 +34,6 @@ window.BM_CATALOG = [
   },
   {
     sku: "balm-winter",
-    image: "img-9842",
     name: "Winter Balm",
     group: "Lips",
     price: 600,
@@ -47,7 +45,7 @@ window.BM_CATALOG = [
   },
   {
     sku: "balm-summer",
-    image: "img-9852",
+    image: "img-9842",
     name: "Summer Balm",
     group: "Lips",
     price: 600,
@@ -59,7 +57,6 @@ window.BM_CATALOG = [
   },
   {
     sku: "lip-oil",
-    image: "img-9845",
     name: "Lip Oil",
     group: "Lips",
     price: 1200,
