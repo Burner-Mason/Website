@@ -67,7 +67,10 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+/* scroll-padding-top keeps in-page anchors (e.g. #lips, #hands) clear of the
+   sticky header instead of sliding underneath it. */
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+@media (max-width: 560px) { html { scroll-padding-top: 72px; } }
 
 body {
   margin: 0;
