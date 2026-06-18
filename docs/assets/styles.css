@@ -376,13 +376,7 @@ a:hover { color: var(--clay-deep); }
 .story-body > p { margin: 0 0 20px; font-size: 18px; }
 .story-body strong { font-weight: 600; color: var(--ink); }
 .story h2 {
-  font-size: clamp(24px, 3vw, 30px); margin: 52px 0 14px;
-  display: flex; align-items: baseline; gap: 14px;
-}
-.story h2 .n {
-  font-size: 14px; color: var(--clay); letter-spacing: 0.1em;
-  font-family: -apple-system, sans-serif; font-weight: 600;
-  font-feature-settings: "tnum"; flex: none;
+  font-size: clamp(25px, 3.2vw, 32px); margin: 52px 0 14px;
 }
 
 .pullquote {
