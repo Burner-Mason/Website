@@ -113,6 +113,7 @@
       const has = ev && ev.availablePaymentMethods && Object.keys(ev.availablePaymentMethods).length > 0;
       $("express-top").hidden = !has;
     });
+    exEl.on("loaderror", (ev) => exDebug("wallet load error: " + ((ev && ev.error && ev.error.message) || "unknown")));
     exEl.on("shippingaddresschange", onExShippingAddress);
     exEl.on("shippingratechange", onExShippingRate);
     exEl.on("cancel", () => exElements.update({ amount: BMCart.subtotal() }));
@@ -120,23 +121,49 @@
     exEl.mount("#express-top-element");
   }
 
+  // The Apple Pay / Google Pay sheet is a NATIVE modal — we can't read a phone's
+  // console — so surface each step's timing on the page. Also: Apple aborts a
+  // shipping update that isn't answered within ~30s, so we cap our own wait well
+  // under that and fail fast (with a visible reason) instead of freezing the sheet.
+  const now = () => (window.performance && performance.now ? performance.now() : Date.now());
+  function exDebug(msg) {
+    try {
+      const el = $("express-debug");
+      if (el) el.textContent = msg;
+      if (window.console) console.log("[wallet] " + msg);
+    } catch (e) {}
+  }
+  function withTimeout(promise, ms, label) {
+    let t;
+    const guard = new Promise((_, reject) => {
+      t = setTimeout(() => reject(new Error((label || "request") + " timed out after " + ms + "ms")), ms);
+    });
+    return Promise.race([promise, guard]).finally(() => clearTimeout(t));
+  }
+
   async function onExShippingAddress(event) {
+    const t0 = now();
+    exDebug("getting shipping rates…");
     try {
       const a = event.address || {};
       // Wallet redacts to city/state/postal — enough to rate. Placeholder name/line1
       // (rates are computed from the ZIP; the real address is captured at confirm).
-      const rates = await fetchRates({
+      const rates = await withTimeout(fetchRates({
         name: "Customer", line1: "—",
         city: a.city, state: a.state,
         zip: a.postal_code || a.postalCode || a.zip || "",
         country: a.country || "US",
-      });
-      if (!rates.length) return event.reject();
+      }), 12000, "shipping rates");
+      const ms = Math.round(now() - t0);
+      if (!rates.length) { exDebug("no rates for that address (" + ms + "ms)"); return event.reject(); }
       exRates = rates;
       exRateId = rates[0].id;
       exElements.update({ amount: BMCart.subtotal() + rates[0].amount });
       event.resolve({ shippingRates: rates.map((r) => ({ id: r.id, displayName: r.label, amount: r.amount })) });
+      exDebug("shipping rates ready in " + ms + "ms");
     } catch (e) {
+      const ms = Math.round(now() - t0);
+      exDebug("rate lookup failed after " + ms + "ms: " + ((e && e.message) || e));
       event.reject();
     }
   }
