@@ -125,7 +125,7 @@ window.bmProductImage = function (product, size, eager) {
   return pic;
 };
 
-// Playful "coming soon" placeholder for products without a photo yet.
+// Placeholder for products that are buyable but not yet photographed.
 // `big` = product-hero size. Theme-aware, no raster asset needed.
 window.bmComingSoon = function (product, big) {
   const wrap = document.createElement("span");
@@ -135,10 +135,7 @@ window.bmComingSoon = function (product, big) {
   mark.textContent = "✨";
   const label = document.createElement("span");
   label.className = "soon-label";
-  label.textContent = "Coming soon";
-  const sub = document.createElement("span");
-  sub.className = "soon-sub";
-  sub.textContent = "good things take a sec";
-  wrap.append(mark, label, sub);
+  label.textContent = "Images coming soon";
+  wrap.append(mark, label);
   return wrap;
 };
