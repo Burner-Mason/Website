@@ -22,6 +22,18 @@
 
 window.BM_CATALOG = [
   {
+    sku: "balm-summer",
+    image: "img-9842",
+    name: "Summer Balm",
+    group: "Lips",
+    price: 600,
+    priceId: "price_1TfXxHKyfoKG2aQiqhbGyl5J",
+    blurb: "Won't melt in your bag.",
+    desc: "A higher-melt lip balm that holds its shape in the heat — so a hot car or a back pocket doesn't turn it to soup.",
+    detail:
+      "Built and tested through summer for people who keep a balm where things get warm. Same clean, soft feel as our other balms — just engineered to stay put.",
+  },
+  {
     sku: "balm-original",
     comingSoon: true,
     name: "Balm",
@@ -44,18 +56,6 @@ window.BM_CATALOG = [
     desc: "A lip balm that stays soft and spreadable in the cold — so it actually works when your lips are chapped and the thermometer isn't cooperating.",
     detail:
       "We reformulated this through real Washington winters until the wax-and-oil blend stopped turning to stone at the bottom of a coat pocket. It glides on at temperatures where ordinary balm just drags.",
-  },
-  {
-    sku: "balm-summer",
-    image: "img-9842",
-    name: "Summer Balm",
-    group: "Lips",
-    price: 600,
-    priceId: "price_1TfXxHKyfoKG2aQiqhbGyl5J",
-    blurb: "Won't melt in your bag.",
-    desc: "A higher-melt lip balm that holds its shape in the heat — so a hot car or a back pocket doesn't turn it to soup.",
-    detail:
-      "Built and tested through summer for people who keep a balm where things get warm. Same clean, soft feel as our other balms — just engineered to stay put.",
   },
   {
     sku: "lip-oil",
