@@ -11,10 +11,12 @@ window.BM_CONFIG = {
   RATES_URL: "https://bm-fn-rates-hv6igyon7q-uc.a.run.app",
   CHECKOUT_URL: "https://bm-fn-checkout-hv6igyon7q-uc.a.run.app",
 
-  // Stripe PUBLISHABLE key (safe to expose). This is your TEST key.
-  // Swap to your live pk_live_... key when you go live.
+  // Stripe PUBLISHABLE key (safe to expose). LIVE key for "Burner Mason, Inc."
+  // (acct_1TfVqH…). Must be paired with the live sk_live_… secret key in the
+  // checkout function (Secret Manager: stripe-secret-key) — a live pk with a test
+  // sk fails every payment.
   STRIPE_PUBLISHABLE_KEY:
-    "pk_test_51TfVRIKyfoKG2aQi7ByDHTU7JK1ToRmzd94LvyRFBHmtmGEvN6pYUBj8Xv1iNBlFq7vDjm3aWaW95Xdtr3giartg00udCYrO3V",
+    "pk_live_51TfVqHRVq1nddwvL9f7hRxZJku0Ec41RaFfbusQWGfdQRCsZsSYk7pIDG4a6WJyAYm2ez074kpn9nqlEcjXdVHjz0008JNKO8S",
 
   // Free shipping kicks in at or above this subtotal (in cents). Display only;
   // the backend enforces the real rule.
