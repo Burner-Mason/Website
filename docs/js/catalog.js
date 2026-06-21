@@ -19,6 +19,8 @@
 //                  img-9852 = closed silver tin
 //                  img-9842 = clear tube, coral product (textured background)
 //                  img-9845 = clear tube, coral product (plain background)
+//                  img-9864 = clear tube, yellow product (Balm)
+//                  img-9865 = blue lip oil bottle (Lip Oil)
 
 window.BM_CATALOG = [
   {
@@ -35,7 +37,7 @@ window.BM_CATALOG = [
   },
   {
     sku: "balm-original",
-    comingSoon: true,
+    image: "img-9864",
     name: "Balm",
     group: "Lips",
     price: 600,
@@ -59,7 +61,7 @@ window.BM_CATALOG = [
   },
   {
     sku: "lip-oil",
-    comingSoon: true,
+    image: "img-9865",
     name: "Lip Oil",
     group: "Lips",
     price: 1200,
