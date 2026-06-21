@@ -29,7 +29,7 @@ window.BM_CATALOG = [
     name: "Summer Balm",
     group: "Lips",
     price: 600,
-    priceId: "price_1TfXxHKyfoKG2aQiqhbGyl5J",
+    priceId: "price_1TkZ0mRVq1nddwvLzNZU3PXN",
     blurb: "Won't melt in your bag.",
     desc: "A higher-melt lip balm that holds its shape in the heat — so a hot car or a back pocket doesn't turn it to soup.",
     detail:
@@ -41,7 +41,7 @@ window.BM_CATALOG = [
     name: "Balm",
     group: "Lips",
     price: 600,
-    priceId: "price_1TfXxHKyfoKG2aQiDieOJmpp",
+    priceId: "price_1TkZ0IRVq1nddwvLF7XLva0e",
     blurb: "Your everyday ride-or-die.",
     desc: "The simple, all-season lip balm you reach for without thinking — balanced, unscented, and quietly good.",
     detail:
@@ -53,7 +53,7 @@ window.BM_CATALOG = [
     name: "Winter Balm",
     group: "Lips",
     price: 600,
-    priceId: "price_1TfXxGKyfoKG2aQiiqZEfL7d",
+    priceId: "price_1TkZ0aRVq1nddwvLiILFkCL2",
     blurb: "Won't quit in the cold.",
     desc: "A lip balm that stays soft and spreadable in the cold — so it actually works when your lips are chapped and the thermometer isn't cooperating.",
     detail:
@@ -65,7 +65,7 @@ window.BM_CATALOG = [
     name: "Lip Oil",
     group: "Lips",
     price: 1200,
-    priceId: "price_1TfXxHKyfoKG2aQi8I5icA0H",
+    priceId: "price_1TkZ0wRVq1nddwvLt5vTL4jx",
     blurb: "Glossy, never sticky.",
     desc: "A lightweight lip oil that leaves a soft, glassy shine while it conditions — glossy, never sticky.",
     detail:
@@ -77,7 +77,7 @@ window.BM_CATALOG = [
     name: "Hand Sanitizer",
     group: "Hands",
     price: 800,
-    priceId: "price_1TfXxIKyfoKG2aQixtBQeymy",
+    priceId: "price_1TkZ1ARVq1nddwvLR96BoZdW",
     blurb: "Clean hands, zero crackle.",
     desc: "A hand sanitizer with enough alcohol to do the job and enough oils to undo the damage — so clean hands don't end up dry and cracked.",
     detail:
@@ -89,7 +89,7 @@ window.BM_CATALOG = [
     name: "Hand Salve — Day",
     group: "Hands",
     price: 1400,
-    priceId: "price_1TfXxIKyfoKG2aQirxRwHBd2",
+    priceId: "price_1TkZ1LRVq1nddwvLYTyXxJsY",
     blurb: "Soaks in, no grease.",
     desc: "A fast-absorbing daytime hand salve that protects working hands and sinks in clean — no slick, no residue on everything you touch.",
     detail:
@@ -101,7 +101,7 @@ window.BM_CATALOG = [
     name: "Hand Salve — Night",
     group: "Hands",
     price: 1600,
-    priceId: "price_1TfXxIKyfoKG2aQiMypB0s5M",
+    priceId: "price_1TkZ1URVq1nddwvLLogvNBGL",
     blurb: "Wake up to softer hands.",
     desc: "A rich overnight hand salve that works while you sleep — so you wake up to hands that feel genuinely repaired.",
     detail:
